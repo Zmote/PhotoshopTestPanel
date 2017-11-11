@@ -3,7 +3,7 @@ This panel/extension has no purpose, at the moment, it's more about learning how
 You have to do that, because else it asks for an encyrpted signature to run, which for development purposes doesn't make much sense.
 
 ## Current Progress
-![alt text](http://i126.photobucket.com/albums/p111/Zaferium/testpanel_zpsoigpcg12.png)
+![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)
 
 Features:
 - Add Named Layers
