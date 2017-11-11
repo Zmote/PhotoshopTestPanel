@@ -16,7 +16,22 @@ ZMotePanel.prototype.addNewGroup = function (name) {
 };
 
 ZMotePanel.prototype.getCenterAnchorPathPoint = function () {
-    return zMotePanel.getAnchorPathPointAt(Number(app.activeDocument.width / 2), Number(app.activeDocument.height / 2));
+    //init with Center of document for perspective center
+    var xPos = Number(app.activeDocument.width / 2);
+    var yPos = Number(app.activeDocument.height / 2);
+    //if a selection is available, use this as new center
+    var selection = app.activeDocument.selection;
+    var selBounds;
+    try{
+        selBounds = selection.bounds;
+    }catch(ex){
+        selBounds = false;
+    }
+    if(selBounds){
+        xPos = Number(selection.bounds[0]) + ((Number(selection.bounds[2]) - Number(selection.bounds[0]))/2);
+        yPos = Number(selection.bounds[1]) + ((Number(selection.bounds[3]) - Number(selection.bounds[1]))/2);
+    }
+    return zMotePanel.getAnchorPathPointAt(xPos, yPos);
 };
 
 ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
@@ -28,10 +43,10 @@ ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
     return pathPoint;
 };
 
-ZMotePanel.prototype.addOnePointPerspective = function () {
+ZMotePanel.prototype.prepareLinesArrayForOnePointPerspective = function(horizontalLines, verticalLines){
     var lineArray = [];
-    var widthIncrement = Number(app.activeDocument.width)/20;
-    var heightIncrement = Number(app.activeDocument.height)/20;
+    var widthIncrement = Number(app.activeDocument.width)/horizontalLines;
+    var heightIncrement = Number(app.activeDocument.height)/verticalLines;
 
     for(var iWidth = 0; iWidth <= app.activeDocument.width; iWidth = iWidth + widthIncrement){
         lineArray.push(zMotePanel.getAnchorPathPointAt(iWidth,0));
@@ -45,18 +60,17 @@ ZMotePanel.prototype.addOnePointPerspective = function () {
         lineArray.push(zMotePanel.getAnchorPathPointAt(Number(app.activeDocument.width),iHeight));
         lineArray.push(zMotePanel.getCenterAnchorPathPoint());
     }
+    return lineArray;
+};
 
-// create a SubPathInfo object, which holds the line array in its entireSubPath property.
-    var lineSubPathArray = [];
-    lineSubPathArray.push(new SubPathInfo());
-    lineSubPathArray[0].operation = ShapeOperation.SHAPEXOR;
-    lineSubPathArray[0].closed = false;
-    lineSubPathArray[0].entireSubPath = lineArray;
+ZMotePanel.prototype.addOnePointPerspective = function () {
+    var subPath = new SubPathInfo();
+    subPath.operation = ShapeOperation.SHAPEXOR;
+    subPath.closed = false;
+    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(10,10);
 
-//create the path item, passing subpath to add method
-    var myPathItem = app.activeDocument.pathItems.add("A Line", lineSubPathArray);
-
-// stroke it so we can see something
+    var myPathItem = app.activeDocument.pathItems.add("Perspective", [subPath]);
+    app.activeDocument.selection.deselect();
     myPathItem.strokePath(ToolType.BRUSH);
     app.activeDocument.pathItems.removeAll();
 };
