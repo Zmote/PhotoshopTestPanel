@@ -14,8 +14,13 @@ function addNewGroup(){
     groupInput.val("");
 }
 
+function addOnePointPerspective(){
+    csInterface.evalScript("zMotePanel.addOnePointPerspective()");
+}
+
 $("#addLayerButton").click(addNewLayer);
 $("#addGroupButton").click(addNewGroup);
+$("#addOnePointPerspectiveButton").click(addOnePointPerspective);
 
 $("#layerName").keyup(function(e){
     if(e.which === 13){
