@@ -1,8 +1,11 @@
 var csInterface = new CSInterface();
 
-//TODO: Implement more efficient path drawing (right now it draws the same path in both directions)
 //TODO: add option to simulate depth --> ie. density based on angle
 //TODO: add two point perspective (multi selection to put two perspective grids at the same time
+//TODO: add option to leave path on
+//TODO: add option to stroke path
+//TODO: check if you can bind an event to brush strokes --> ie. add pixels on brush stroke
+//TODO: add mirrored drawing feature
 
 $("#panelInputForm").submit(false);
 
@@ -19,14 +22,21 @@ function addNewGroup(){
 }
 
 function addOnePointPerspective(){
-    var densityInput = $("#density").val();
-    var radius = $("#radius").val();
+    var densityInput = $("#onePointDensity").val();
+    var radius = $("#onePointRadius").val();
     csInterface.evalScript("zMotePanel.addOnePointPerspective("+ densityInput +"," + radius + ")");
+}
+
+function addTwoPointPerspective(){
+    var densityInput = $("#twoPointDensity").val();
+    var radius = $("#twoPointRadius").val();
+    csInterface.evalScript("zMotePanel.addTwoPointPerspective("+ densityInput +"," + radius + ")");
 }
 
 $("#addLayerButton").click(addNewLayer);
 $("#addGroupButton").click(addNewGroup);
 $("#addOnePointPerspectiveButton").click(addOnePointPerspective);
+$("#addTwoPointPerspectiveButton").click(addTwoPointPerspective);
 
 $("#layerName").keyup(function(e){
     if(e.which === 13){
