@@ -63,11 +63,11 @@ ZMotePanel.prototype.prepareLinesArrayForOnePointPerspective = function(horizont
     return lineArray;
 };
 
-ZMotePanel.prototype.addOnePointPerspective = function () {
+ZMotePanel.prototype.addOnePointPerspective = function (horiontalDensity, verticalDensity) {
     var subPath = new SubPathInfo();
     subPath.operation = ShapeOperation.SHAPEXOR;
     subPath.closed = false;
-    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(10,10);
+    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(horiontalDensity,verticalDensity);
 
     var myPathItem = app.activeDocument.pathItems.add("Perspective", [subPath]);
     app.activeDocument.selection.deselect();

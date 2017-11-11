@@ -15,7 +15,9 @@ function addNewGroup(){
 }
 
 function addOnePointPerspective(){
-    csInterface.evalScript("zMotePanel.addOnePointPerspective()");
+    var horizontalDensityInput = $("#perspectiveHorizontalDensity").val();
+    var verticalDensityInput = $("#perspectiveVerticalDensity").val();
+    csInterface.evalScript("zMotePanel.addOnePointPerspective("+ horizontalDensityInput +"," + verticalDensityInput + ")");
 }
 
 $("#addLayerButton").click(addNewLayer);
