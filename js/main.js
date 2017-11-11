@@ -1,5 +1,9 @@
 var csInterface = new CSInterface();
 
+//TODO: Implement more efficient path drawing (right now it draws the same path in both directions)
+//TODO: add option to simulate depth --> ie. density based on angle
+//TODO: add two point perspective (multi selection to put two perspective grids at the same time
+
 $("#panelInputForm").submit(false);
 
 function addNewLayer(){
@@ -15,9 +19,9 @@ function addNewGroup(){
 }
 
 function addOnePointPerspective(){
-    var horizontalDensityInput = $("#perspectiveHorizontalDensity").val();
-    var verticalDensityInput = $("#perspectiveVerticalDensity").val();
-    csInterface.evalScript("zMotePanel.addOnePointPerspective("+ horizontalDensityInput +"," + verticalDensityInput + ")");
+    var densityInput = $("#density").val();
+    var radius = $("#radius").val();
+    csInterface.evalScript("zMotePanel.addOnePointPerspective("+ densityInput +"," + radius + ")");
 }
 
 $("#addLayerButton").click(addNewLayer);

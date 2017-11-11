@@ -22,14 +22,14 @@ ZMotePanel.prototype.getCenterAnchorPathPoint = function () {
     //if a selection is available, use this as new center
     var selection = app.activeDocument.selection;
     var selBounds;
-    try{
+    try {
         selBounds = selection.bounds;
-    }catch(ex){
+    } catch (ex) {
         selBounds = false;
     }
-    if(selBounds){
-        xPos = Number(selection.bounds[0]) + ((Number(selection.bounds[2]) - Number(selection.bounds[0]))/2);
-        yPos = Number(selection.bounds[1]) + ((Number(selection.bounds[3]) - Number(selection.bounds[1]))/2);
+    if (selBounds) {
+        xPos = Number(selection.bounds[0]) + ((Number(selection.bounds[2]) - Number(selection.bounds[0])) / 2);
+        yPos = Number(selection.bounds[1]) + ((Number(selection.bounds[3]) - Number(selection.bounds[1])) / 2);
     }
     return zMotePanel.getAnchorPathPointAt(xPos, yPos);
 };
@@ -43,31 +43,32 @@ ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
     return pathPoint;
 };
 
-ZMotePanel.prototype.prepareLinesArrayForOnePointPerspective = function(horizontalLines, verticalLines){
-    var lineArray = [];
-    var widthIncrement = Number(app.activeDocument.width)/horizontalLines;
-    var heightIncrement = Number(app.activeDocument.height)/verticalLines;
+ZMotePanel.prototype.getPointFromCentralAnchor = function (anchorPoint, distance, angle) {
+    var pathPoint = new PathPointInfo();
+    pathPoint.kind = PointKind.CORNERPOINT;
+    var xPos = anchorPoint.anchor[0] + (Math.sin(angle * Math.PI / 180) * distance);
+    var yPos = anchorPoint.anchor[1] + (Math.cos(angle * Math.PI / 180) * distance);
+    pathPoint.anchor = [xPos, yPos];
+    pathPoint.leftDirection = pathPoint.anchor;
+    pathPoint.rightDirection = pathPoint.anchor;
+    return pathPoint;
+};
 
-    for(var iWidth = 0; iWidth <= app.activeDocument.width; iWidth = iWidth + widthIncrement){
-        lineArray.push(zMotePanel.getAnchorPathPointAt(iWidth,0));
-        lineArray.push(zMotePanel.getCenterAnchorPathPoint());
-        lineArray.push(zMotePanel.getAnchorPathPointAt(iWidth, Number(app.activeDocument.height)));
-        lineArray.push(zMotePanel.getCenterAnchorPathPoint());
-    }
-    for(var iHeight = heightIncrement; iHeight <= app.activeDocument.height; iHeight = iHeight + heightIncrement){
-        lineArray.push(zMotePanel.getAnchorPathPointAt(0,iHeight));
-        lineArray.push(zMotePanel.getCenterAnchorPathPoint());
-        lineArray.push(zMotePanel.getAnchorPathPointAt(Number(app.activeDocument.width),iHeight));
-        lineArray.push(zMotePanel.getCenterAnchorPathPoint());
+ZMotePanel.prototype.prepareLinesArrayForOnePointPerspective = function (density, distance) {
+    var lineArray = [];
+    var anchorPoint = zMotePanel.getCenterAnchorPathPoint();
+    for (var iAngle = 0; iAngle <= 360; iAngle = iAngle + density) {
+        lineArray.push(zMotePanel.getPointFromCentralAnchor(anchorPoint, distance, iAngle));
+        lineArray.push(anchorPoint);
     }
     return lineArray;
 };
 
-ZMotePanel.prototype.addOnePointPerspective = function (horiontalDensity, verticalDensity) {
+ZMotePanel.prototype.addOnePointPerspective = function (density, distance) {
     var subPath = new SubPathInfo();
     subPath.operation = ShapeOperation.SHAPEXOR;
     subPath.closed = false;
-    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(horiontalDensity,verticalDensity);
+    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(density, distance);
 
     var myPathItem = app.activeDocument.pathItems.add("Perspective", [subPath]);
     app.activeDocument.selection.deselect();
