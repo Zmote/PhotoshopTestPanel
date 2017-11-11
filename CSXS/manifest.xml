@@ -36,18 +36,14 @@
 					<Type>Panel</Type>
 					<Menu>TestPanel</Menu>
 					<Geometry>
-						<Size>
-							<Height>300</Height>
-							<Width>300</Width>
-						</Size>
-                    <!--<MinSize>
-                            <Height>550</Height>
-                            <Width>400</Width>
+						<MinSize>
+                            <Height>200</Height>
+                            <Width>200</Width>
                         </MinSize>
                         <MaxSize>
                             <Height>550</Height>
                             <Width>400</Width>
-                        </MaxSize>-->                        
+                        </MaxSize>                  
 					</Geometry>
 				</UI>
 			</DispatchInfo>

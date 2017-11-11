@@ -1,10 +1,17 @@
-function sayHello(){
-    alert("hello from ExtendScript");
-}
+function ZMotePanel(){}
 
-function addNewLayer(name){
+ZMotePanel.prototype.addNewLayer = function(name) {
     var newLayer = app.activeDocument.artLayers.add();
-    if(name){
+    if (name) {
         newLayer.name = name;
     }
-}
+};
+
+ZMotePanel.prototype.addNewGroup = function(name) {
+    var newGroup = app.activeDocument.layerSets.add();
+    if (name) {
+        newGroup.name = name;
+    }
+};
+
+var zMotePanel = new ZMotePanel();
