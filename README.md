@@ -4,6 +4,7 @@ You have to do that, because else it asks for an encyrpted signature to run, whi
 
 ## Current Progress
 ![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)
+![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/animatedExample.gif)
 
 Features:
 - Add Named Layers
