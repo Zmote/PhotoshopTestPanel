@@ -54,23 +54,47 @@ ZMotePanel.prototype.getPointFromCentralAnchor = function (anchorPoint, distance
     return pathPoint;
 };
 
-ZMotePanel.prototype.prepareLinesArrayForOnePointPerspective = function (density, distance) {
+ZMotePanel.prototype.prepareLineForPerspective = function (distance, angle) {
     var lineArray = [];
     var anchorPoint = zMotePanel.getCenterAnchorPathPoint();
-    for (var iAngle = 0; iAngle <= 360; iAngle = iAngle + density) {
-        lineArray.push(zMotePanel.getPointFromCentralAnchor(anchorPoint, distance, iAngle));
-        lineArray.push(anchorPoint);
+    lineArray.push(anchorPoint);
+    lineArray.push(zMotePanel.getPointFromCentralAnchor(anchorPoint, distance, angle));
+    return lineArray;
+};
+
+ZMotePanel.prototype.prepareLinesArrayForPerspective = function (density, distance) {
+    var lineArray = [];
+    var invertedDensity = 360 / density;
+    for (var iAngle = 0; iAngle <= 360; iAngle = iAngle + invertedDensity) {
+        lineArray = lineArray.concat(zMotePanel.prepareLineForPerspective(distance, iAngle));
     }
     return lineArray;
 };
 
-ZMotePanel.prototype.addOnePointPerspective = function (density, distance) {
+ZMotePanel.prototype.generateSubPathFromConnectedLines = function (density, distance) {
     var subPath = new SubPathInfo();
     subPath.operation = ShapeOperation.SHAPEXOR;
     subPath.closed = false;
-    subPath.entireSubPath = zMotePanel.prepareLinesArrayForOnePointPerspective(density, distance);
+    subPath.entireSubPath = zMotePanel.prepareLinesArrayForPerspective(density, distance);
+    return subPath;
+};
 
-    var myPathItem = app.activeDocument.pathItems.add("Perspective", [subPath]);
+ZMotePanel.prototype.generateSubPathFromDisconnectedLines = function (density, distance) {
+    var invertedDensity = 360 / density;
+    var subPathArray = [];
+    for (var iAngle = 0; iAngle < 360; iAngle = iAngle + invertedDensity) {
+        var subPath = new SubPathInfo();
+        subPath.operation = ShapeOperation.SHAPEXOR;
+        subPath.closed = false;
+        subPath.entireSubPath = zMotePanel.prepareLineForPerspective(distance, iAngle);
+        subPathArray.push(subPath);
+    }
+    return subPathArray;
+};
+
+ZMotePanel.prototype.addOnePointPerspective = function (density, distance) {
+    // var myPathItem = app.activeDocument.pathItems.add("Perspective", [zMotePanel.generateSubPathFromConnectedLines(density,distance)]);
+    var myPathItem = app.activeDocument.pathItems.add("Perspective", zMotePanel.generateSubPathFromDisconnectedLines(density, distance));
     app.activeDocument.selection.deselect();
     myPathItem.strokePath(ToolType.BRUSH);
     app.activeDocument.pathItems.removeAll();
