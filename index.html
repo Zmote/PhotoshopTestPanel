@@ -10,33 +10,19 @@
 
 <body>
 <div class="container-fluid">
-    <h1>Test Panel</h1>
+    <h1 class="mt-2">Zmote Perspective Tool's</h1>
     <form id="panelInputForm">
-        <hr>
-        <div class="form-group">
-            <label for="layerName"><span class="h4">Layer Tools</span></label>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <input type="text" class="form-control" id="layerName" placeholder="Layer name...">
-                <button type="button" id="addLayerButton" class="input-group-addon btn-primary">Add Layer</button>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <input type="text" class="form-control" id="groupName" placeholder="Group name...">
-                <button type="button" id="addGroupButton" class="input-group-addon btn-primary">Add Group</button>
-            </div>
-        </div>
         <hr>
         <div class="form-group">
             <label for="addOnePointPerspectiveButton"><span class="h4">Perspective </span><sup
                     class="text-danger">Warning: Uses current brush and brush size</sup></label>
             <div class="mb-2">
-                <label for="density" class="mr-1 font-italic">Density (360°/value):</label>
+                <label for="density" class="mr-1 font-italic">Grid Density:<sup> 360°/value</sup></label>
                 <input id="density" class="form-control d-inline w-25" type="number" placeholder="Density"
                        value="10"/>
                 <label for="radius" class="mx-1 font-italic">Radius (pixels):</label>
                 <input id="radius" class="form-control d-inline w-25" type="number" placeholder="Radius"
-                       value="1000"/>
+                       value="2000"/>
             </div>
             <div class="my-2">
                 <label for="eyeMargin" class="font-italic mr-2">Eye Margin (pixels):</label>
@@ -70,18 +56,26 @@
                     Simulate Pressure
                 </label>
             </div>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <hr>
+            <div class="form-check mb-2">
+                <label class="form-check-label">
+                    <input id="pathMode" type="checkbox" class="form-check-input">
+                    Path Mode
+                </label>
+            </div>
+            <div class="input-group mr-sm-2 mb-1">
                 <button type="button" id="addOnePointPerspectiveButton" class="btn btn-primary">Add One-Point
                     Perspective
                 </button>
-                <span class="ml-2"><sup>Place selection on canvas for eye placement</sup></span>
             </div>
-            <div class="input-group mt-2 mb-2 mr-sm-2 mb-sm-0">
-                <button type="button" id="addTwoPointPerspectiveButton" class="btn btn-primary">Add Two-Point
+            <sup class="font-italic">*Place selection or path point(s) on canvas for eye placement. For path points as for multiple selections, a median will be calculated</sup>
+            <hr>
+            <div class="input-group mr-sm-2 mb-1">
+                <button type="button" id="addMultiPointPerspectiveButton" class="btn btn-primary">Add Multi-Point
                     Perspective
                 </button>
-                <span class="ml-2"><sup>Place 2 selections on canvas for eye placements</sup></span>
             </div>
+            <sup class="font-italic">*Place path points on canvas for eye placement. This tool works only with paths</sup>
         </div>
     </form>
 </div>

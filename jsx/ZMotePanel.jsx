@@ -1,27 +1,17 @@
 function ZMotePanel() {}
 
-ZMotePanel.prototype.addNewLayer = function (name) {
-    var newLayer = app.activeDocument.artLayers.add();
-    if (name) {
-        newLayer.name = name;
-    }
-};
-
-ZMotePanel.prototype.addNewGroup = function (name) {
-    var newGroup = app.activeDocument.layerSets.add();
-    if (name) {
-        newGroup.name = name;
-    }
-};
-
 ZMotePanel.prototype.addOnePointPerspective = function (options) {
     options = jsonUtility.parseOptions(options);
+    pathUtility.pathMode = options.pathMode;
+    if(pathUtility.pathMode && !options.hasOwnProperty("multiPoint")){
+        pathUtility.pathPoint = pathUtility.calculateMedianOfPoints();
+    }
     var doc = app.activeDocument;
     var myPathItem = doc.pathItems.add("", pathUtility.generateSubPathFromDisconnectedLines(options));
     doc.selection.deselect();
-    var layer = doc.artLayers.add();
-    layer.name = "Perspective Grid";
     if(options.strokePath){
+        var layer = doc.artLayers.add();
+        layer.name = "Perspective Grid";
         if(options.simulatePressure){
             myPathItem.strokePath(ToolType.BRUSH,true);
         }else{
@@ -33,9 +23,28 @@ ZMotePanel.prototype.addOnePointPerspective = function (options) {
     }
 };
 
-ZMotePanel.prototype.addTwoPointPerspective = function (options) {
-    alert("lallla");
-    var selection = app.activeDocument.selection;
+
+ZMotePanel.prototype.addMultiPointPerspective = function (options) {
+    options = jsonUtility.parseOptions(options);
+    options.multiPoint = true;
+    var originalPathMode = options.pathMode;
+    options.pathMode = true;
+    var pathItems = app.activeDocument.pathItems;
+    if(pathItems.length > 0){
+        try{
+            var collectedPathPoints = pathUtility.collectPathPointsFromWorkingPath(pathItems);
+            for(var z = 0; z < collectedPathPoints.length;z++){
+                pathUtility.updatePathPoint(collectedPathPoints[z][0],collectedPathPoints[z][1]);
+                zMotePanel.addOnePointPerspective(options);
+            }
+            pathUtility.pathMode = originalPathMode;
+        }catch(ex){
+            alert("Whoops, something went wrong: " + ex.message);
+        }
+    }else{
+        alert("No path to work with, check that you have a path in Path Tab. This tool selects the" +
+            "bottom most path in the Path's layer, which is usually the Work Path.");
+    }
 };
 
 $.global.zMotePanel = new ZMotePanel();
