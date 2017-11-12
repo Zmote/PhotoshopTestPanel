@@ -18,7 +18,8 @@ ZMotePanel.prototype.addNewGroup = function (name) {
 ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
     var pathPoint = new PathPointInfo();
     pathPoint.kind = PointKind.CORNERPOINT;
-    pathPoint.anchor = [xPos, yPos];
+    var resMultiplier = 72/ app.activeDocument.resolution;
+    pathPoint.anchor = [xPos * resMultiplier, yPos * resMultiplier];
     pathPoint.leftDirection = pathPoint.anchor;
     pathPoint.rightDirection = pathPoint.anchor;
     return pathPoint;
@@ -34,9 +35,6 @@ ZMotePanel.prototype.getCenterAnchorPathPoint = function () {
         xPos = Number(selectionBounds[0]) + ((Number(selectionBounds[2]) - Number(selectionBounds[0])) / 2);
         yPos = Number(selectionBounds[1]) + ((Number(selectionBounds[3]) - Number(selectionBounds[1])) / 2);
     } catch (ex) {}
-    var resMultiplier = 72/ app.activeDocument.resolution;
-    xPos = xPos * resMultiplier;
-    yPos = yPos * resMultiplier;
     return zMotePanel.getAnchorPathPointAt(xPos, yPos);
 };
 
@@ -44,38 +42,40 @@ ZMotePanel.prototype.getPointFromCentralAnchor = function (anchorPoint, distance
     var pathPoint = new PathPointInfo();
     pathPoint.kind = PointKind.CORNERPOINT;
     var xPos = anchorPoint.anchor[0] + (Math.sin(angle * Math.PI / 180) * distance);
-    var yPos = anchorPoint.anchor[1] + (Math.cos(angle * Math.PI / 180) * distance);
+    var yPos = anchorPoint.anchor[1] + (Math.cos(angle * Math.PI / 180) * -distance);
     pathPoint.anchor = [xPos, yPos];
     pathPoint.leftDirection = pathPoint.anchor;
     pathPoint.rightDirection = pathPoint.anchor;
     return pathPoint;
 };
 
-ZMotePanel.prototype.prepareLineForPerspective = function (distance, angle) {
+ZMotePanel.prototype.prepareLineForPerspective = function (distance, angle, eyeMargin) {
     var lineArray = [];
     var anchorPoint = zMotePanel.getCenterAnchorPathPoint();
-    lineArray.push(anchorPoint);
+    lineArray.push(zMotePanel.getPointFromCentralAnchor(anchorPoint, eyeMargin, angle));
     lineArray.push(zMotePanel.getPointFromCentralAnchor(anchorPoint, distance, angle));
     return lineArray;
 };
 
-ZMotePanel.prototype.generateSubPathFromDisconnectedLines = function (density, distance) {
-    var invertedDensity = 360 / density;
+ZMotePanel.prototype.generateSubPathFromDisconnectedLines = function (startAngle, stopAngle, density, distance, eyeMargin) {
+    var invertedDensity = (stopAngle - startAngle) / density;
     var subPathArray = [];
-    for (var iAngle = 0; iAngle < 360; iAngle = iAngle + invertedDensity) {
+    for (var iAngle = startAngle; iAngle <= stopAngle; iAngle = iAngle + invertedDensity) {
         var subPath = new SubPathInfo();
         subPath.operation = ShapeOperation.SHAPEXOR;
         subPath.closed = false;
-        subPath.entireSubPath = zMotePanel.prepareLineForPerspective(distance, iAngle);
+        subPath.entireSubPath = zMotePanel.prepareLineForPerspective(distance, iAngle, eyeMargin);
         subPathArray.push(subPath);
     }
     return subPathArray;
 };
 
-ZMotePanel.prototype.addOnePointPerspective = function (density, distance) {
+//TODO: Extract calculations into own file
+//TODO: Replace with parameter object
+ZMotePanel.prototype.addOnePointPerspective = function (startAngle, stopAngle, density, distance, eyeMargin) {
     var doc = app.activeDocument;
     var resMultiplier = 72/ app.activeDocument.resolution;
-    var myPathItem = doc.pathItems.add("Perspective", zMotePanel.generateSubPathFromDisconnectedLines(density, distance *resMultiplier));
+    var myPathItem = doc.pathItems.add("Perspective", zMotePanel.generateSubPathFromDisconnectedLines(startAngle, stopAngle, density, distance *resMultiplier, eyeMargin * resMultiplier));
     doc.selection.deselect();
     var layer = doc.artLayers.add();
     layer.name = "Perspective Grid";

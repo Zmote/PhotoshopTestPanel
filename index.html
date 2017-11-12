@@ -33,6 +33,17 @@
                 <label for="onePointRadius" class="mx-1 font-italic">Radius (points):</label>
                 <input id="onePointRadius" class="form-control d-inline w-25" type="number" placeholder="Radius" value="1000"/>
             </div>
+            <div class="my-2">
+                <label for="onePointEyeMargin" class="font-italic mr-2">Eye Margin (points):</label>
+                <input id="onePointEyeMargin" class="form-control d-inline w-25" type="number" placeholder="Eye Margin" value="5"/>
+            </div>
+            <sup class="text-danger">Angle starts at x-Axis, clockwise</sup>
+            <div class="mb-2">
+                <label for="onePointStartAngle" class="mr-1 font-italic">Start Angle (degrees):</label>
+                <input id="onePointStartAngle" class="form-control d-inline w-20" type="number" placeholder="Start Angle" value="0"/>
+                <label for="onePointStopAngle" class="mx-1 font-italic">Stop Angle (degrees):</label>
+                <input id="onePointStopAngle" class="form-control d-inline w-20" type="number" placeholder="Stop Angle" value="360"/>
+            </div>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <button type="button" id="addOnePointPerspectiveButton" class="btn btn-primary">Add One-Point Perspective</button>
                 <span class="ml-2"><sup>Place selection on canvas for eye placement</sup></span>

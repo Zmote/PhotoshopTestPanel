@@ -23,14 +23,22 @@ function addNewGroup(){
 
 function addOnePointPerspective(){
     var densityInput = $("#onePointDensity").val();
+    densityInput = densityInput ? densityInput : 10;
     var radius = $("#onePointRadius").val();
-    csInterface.evalScript("zMotePanel.addOnePointPerspective("+ densityInput +"," + radius + ")");
+    radius = radius ? radius : 1000;
+    var eyeMargin = $("#onePointEyeMargin").val();
+    eyeMargin = eyeMargin ? eyeMargin : 0;
+    var startAngle = $("#onePointStartAngle").val();
+    startAngle = startAngle ? startAngle : 0;
+    var stopAngle = $("#onePointStopAngle").val();
+    stopAngle = stopAngle ? stopAngle : 360;
+    csInterface.evalScript("zMotePanel.addOnePointPerspective(" + startAngle + "," + stopAngle + "," + densityInput +"," + radius + "," + eyeMargin + ")");
 }
 
 function addTwoPointPerspective(){
     var densityInput = $("#twoPointDensity").val();
     var radius = $("#twoPointRadius").val();
-    csInterface.evalScript("zMotePanel.addTwoPointPerspective("+ densityInput +"," + radius + ")");
+    csInterface.evalScript("zMotePanel.addTwoPointPerspective("+ densityInput + "," + radius + ")");
 }
 
 $("#addLayerButton").click(addNewLayer);
