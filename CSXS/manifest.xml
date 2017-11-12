@@ -27,7 +27,7 @@
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./index.html</MainPath>
-				<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+				<ScriptPath>./jsx/main.jsx</ScriptPath>
 				</Resources>
 				<Lifecycle>
 					<AutoVisible>true</AutoVisible>
@@ -41,9 +41,9 @@
                             <Width>200</Width>
                         </MinSize>
                         <MaxSize>
-                            <Height>550</Height>
+                            <Height>1080</Height>
                             <Width>400</Width>
-                        </MaxSize>                  
+                        </MaxSize>
 					</Geometry>
 				</UI>
 			</DispatchInfo>

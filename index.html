@@ -12,7 +12,9 @@
 <div class="container-fluid">
     <h1>Test Panel</h1>
     <form id="panelInputForm">
+        <hr>
         <div class="form-group">
+            <label for="layerName"><span class="h4">Layer Tools</span></label>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <input type="text" class="form-control" id="layerName" placeholder="Layer name...">
                 <button type="button" id="addLayerButton" class="input-group-addon btn-primary">Add Layer</button>
@@ -26,40 +28,58 @@
         </div>
         <hr>
         <div class="form-group">
-            <label for="addOnePointPerspectiveButton">One-Point-Perspective: <sup class="text-danger">Warning: Uses current brush and brush size</sup></label>
+            <label for="addOnePointPerspectiveButton"><span class="h4">Perspective </span><sup
+                    class="text-danger">Warning: Uses current brush and brush size</sup></label>
             <div class="mb-2">
-                <label for="onePointDensity" class="mr-1 font-italic">Density (360°/value):</label>
-                <input id="onePointDensity" class="form-control d-inline w-25" type="number" placeholder="Density" value="10"/>
-                <label for="onePointRadius" class="mx-1 font-italic">Radius (points):</label>
-                <input id="onePointRadius" class="form-control d-inline w-25" type="number" placeholder="Radius" value="1000"/>
+                <label for="density" class="mr-1 font-italic">Density (360°/value):</label>
+                <input id="density" class="form-control d-inline w-25" type="number" placeholder="Density"
+                       value="10"/>
+                <label for="radius" class="mx-1 font-italic">Radius (pixels):</label>
+                <input id="radius" class="form-control d-inline w-25" type="number" placeholder="Radius"
+                       value="1000"/>
             </div>
             <div class="my-2">
-                <label for="onePointEyeMargin" class="font-italic mr-2">Eye Margin (points):</label>
-                <input id="onePointEyeMargin" class="form-control d-inline w-25" type="number" placeholder="Eye Margin" value="5"/>
+                <label for="eyeMargin" class="font-italic mr-2">Eye Margin (pixels):</label>
+                <input id="eyeMargin" class="form-control d-inline w-25" type="number" placeholder="Eye Margin"
+                       value="5"/>
             </div>
-            <sup class="text-danger">Angle starts at x-Axis, clockwise</sup>
+            <sup class="text-danger">Angle starts at positive y-Axis, clockwise</sup>
             <div class="mb-2">
-                <label for="onePointStartAngle" class="mr-1 font-italic">Start Angle (degrees):</label>
-                <input id="onePointStartAngle" class="form-control d-inline w-20" type="number" placeholder="Start Angle" value="0"/>
-                <label for="onePointStopAngle" class="mx-1 font-italic">Stop Angle (degrees):</label>
-                <input id="onePointStopAngle" class="form-control d-inline w-20" type="number" placeholder="Stop Angle" value="360"/>
+                <label for="startAngle" class="mr-1 font-italic">Start Angle (degrees):</label>
+                <input id="startAngle" class="form-control d-inline w-20" type="number"
+                       placeholder="Start Angle" value="0"/>
+                <label for="stopAngle" class="mx-1 font-italic">Stop Angle (degrees):</label>
+                <input id="stopAngle" class="form-control d-inline w-20" type="number" placeholder="Stop Angle"
+                       value="360"/>
+            </div>
+            <div class="form-check mb-2">
+                <label class="form-check-label">
+                    <input id="autoRemovePath" checked type="checkbox" class="form-check-input">
+                    Auto-Remove Path
+                </label>
+            </div>
+            <div class="form-check mb-2">
+                <label class="form-check-label">
+                    <input id="strokePath" checked type="checkbox" class="form-check-input">
+                    Stroke Path
+                </label>
+            </div>
+            <div class="form-check mb-2">
+                <label class="form-check-label">
+                    <input id="simulatePressure" type="checkbox" class="form-check-input">
+                    Simulate Pressure
+                </label>
             </div>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <button type="button" id="addOnePointPerspectiveButton" class="btn btn-primary">Add One-Point Perspective</button>
+                <button type="button" id="addOnePointPerspectiveButton" class="btn btn-primary">Add One-Point
+                    Perspective
+                </button>
                 <span class="ml-2"><sup>Place selection on canvas for eye placement</sup></span>
             </div>
-        </div>
-        <hr>
-        <div class="form-group">
-            <label for="addOnePointPerspectiveButton">Two-Point-Perspective: <sup class="text-danger">Warning: Uses current brush and brush size</sup></label>
-            <div class="mb-2">
-                <label for="twoPointDensity" class="mr-1 font-italic">Density (360°/value):</label>
-                <input id="twoPointDensity" class="form-control d-inline w-25" type="number" placeholder="Density" value="10"/>
-                <label for="twoPointRadius" class="mx-1 font-italic">Radius (points):</label>
-                <input id="twoPointRadius" class="form-control d-inline w-25" type="number" placeholder="Radius" value="1000"/>
-            </div>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <button type="button" id="addTwoPointPerspectiveButton" class="btn btn-primary">Add Two-Point Perspective</button>
+            <div class="input-group mt-2 mb-2 mr-sm-2 mb-sm-0">
+                <button type="button" id="addTwoPointPerspectiveButton" class="btn btn-primary">Add Two-Point
+                    Perspective
+                </button>
                 <span class="ml-2"><sup>Place 2 selections on canvas for eye placements</sup></span>
             </div>
         </div>
