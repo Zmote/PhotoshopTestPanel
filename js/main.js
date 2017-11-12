@@ -6,7 +6,6 @@ var csInterface = new CSInterface();
 //TODO: add option to stroke path
 //TODO: check if you can bind an event to brush strokes --> ie. add pixels on brush stroke
 //TODO: add mirrored drawing feature
-//TODO: bug --> 72 dpi works ok, but other res lead to weird behaviour
 
 $("#panelInputForm").submit(false);
 

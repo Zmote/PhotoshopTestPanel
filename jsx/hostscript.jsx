@@ -15,25 +15,6 @@ ZMotePanel.prototype.addNewGroup = function (name) {
     }
 };
 
-ZMotePanel.prototype.getCenterAnchorPathPoint = function () {
-    //init with Center of document for perspective center
-    var xPos = Number(app.activeDocument.width / 2);
-    var yPos = Number(app.activeDocument.height / 2);
-    //if a selection is available, use this as new center
-    var selection = app.activeDocument.selection;
-    var selBounds;
-    try {
-        selBounds = selection.bounds;
-    } catch (ex) {
-        selBounds = false;
-    }
-    if (selBounds) {
-        xPos = Number(selection.bounds[0]) + ((Number(selection.bounds[2]) - Number(selection.bounds[0])) / 2);
-        yPos = Number(selection.bounds[1]) + ((Number(selection.bounds[3]) - Number(selection.bounds[1])) / 2);
-    }
-    return zMotePanel.getAnchorPathPointAt(xPos, yPos);
-};
-
 ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
     var pathPoint = new PathPointInfo();
     pathPoint.kind = PointKind.CORNERPOINT;
@@ -41,6 +22,22 @@ ZMotePanel.prototype.getAnchorPathPointAt = function (xPos, yPos) {
     pathPoint.leftDirection = pathPoint.anchor;
     pathPoint.rightDirection = pathPoint.anchor;
     return pathPoint;
+};
+
+ZMotePanel.prototype.getCenterAnchorPathPoint = function () {
+    //init with Center of document for perspective center
+    var xPos = Number(app.activeDocument.width / 2);
+    var yPos = Number(app.activeDocument.height / 2);
+    //if a selection is available, use this as new center
+    try {
+        var selectionBounds = app.activeDocument.selection.bounds;
+        xPos = Number(selectionBounds[0]) + ((Number(selectionBounds[2]) - Number(selectionBounds[0])) / 2);
+        yPos = Number(selectionBounds[1]) + ((Number(selectionBounds[3]) - Number(selectionBounds[1])) / 2);
+    } catch (ex) {}
+    var resMultiplier = 72/ app.activeDocument.resolution;
+    xPos = xPos * resMultiplier;
+    yPos = yPos * resMultiplier;
+    return zMotePanel.getAnchorPathPointAt(xPos, yPos);
 };
 
 ZMotePanel.prototype.getPointFromCentralAnchor = function (anchorPoint, distance, angle) {
@@ -76,8 +73,12 @@ ZMotePanel.prototype.generateSubPathFromDisconnectedLines = function (density, d
 };
 
 ZMotePanel.prototype.addOnePointPerspective = function (density, distance) {
-    var myPathItem = app.activeDocument.pathItems.add("Perspective", zMotePanel.generateSubPathFromDisconnectedLines(density, distance));
-    app.activeDocument.selection.deselect();
+    var doc = app.activeDocument;
+    var resMultiplier = 72/ app.activeDocument.resolution;
+    var myPathItem = doc.pathItems.add("Perspective", zMotePanel.generateSubPathFromDisconnectedLines(density, distance *resMultiplier));
+    doc.selection.deselect();
+    var layer = doc.artLayers.add();
+    layer.name = "Perspective Grid";
     myPathItem.strokePath(ToolType.BRUSH);
     app.activeDocument.pathItems.removeAll();
 };
