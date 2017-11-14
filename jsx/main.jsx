@@ -1,7 +1,7 @@
 if (typeof($) === 'undefined')
     $ = {};
 
-//Loads jsx files at runtime
+//Object for loading jsx files (including those in subfolders)
 $._ext = {
     //Evaluate a file and catch the exception.
     evalFile: function (path) {
@@ -19,6 +19,10 @@ $._ext = {
             for (var i = 0; i < jsxFiles.length; i++) {
                 var jsxFile = jsxFiles[i];
                 $._ext.evalFile(jsxFile);
+            }
+            var subFolder = folder.getFiles();
+            for(var i = 0; i < subFolder.length;i++){
+                $._ext.evalFiles(subFolder[i]);
             }
         }
     }
