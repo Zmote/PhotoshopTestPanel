@@ -1,6 +1,7 @@
 //TODO: add option to simulate depth --> ie. density based on angle
 //TODO: check if you can bind an event to brush strokes --> ie. add pixels on brush stroke
 //TODO: add mirrored drawing feature
+//TODO: Refactor jsx code, optimize code
 
 $(document).ready(function () {
     var csInterface = new CSInterface();
@@ -22,6 +23,9 @@ $(document).ready(function () {
         var strokePath = $("#strokePath").is(":checked");
         var simulatePressure = $("#simulatePressure").is(":checked");
         var pathMode = $("#pathMode").is(":checked");
+        var simulateDepth = $("#simulateDepth").is(":checked");
+        var atAngle = $("#atAngle").val();
+        var easing = $("#easing").val();
 
         return {
             density: densityInput ? densityInput : 10,
@@ -32,7 +36,10 @@ $(document).ready(function () {
             autoRemovePath: autoRemovePath,
             strokePath: strokePath,
             simulatePressure: simulatePressure,
-            pathMode: pathMode
+            pathMode: pathMode,
+            simulateDepth: simulateDepth,
+            atAngle: atAngle ? atAngle : 90,
+            easing : easing ? easing : 1
         };
     }
 
@@ -54,16 +61,13 @@ $(document).ready(function () {
         strokePath.attr("disabled", !$(this).is(":checked"));
         strokePath.parent("label").toggle($(this).is(":checked"));
     });
+    $("#simulateDepth").change(function () {
+        var easing = $("#easing");
+        easing.attr("disabled", !$(this).is(":checked"));
+        easing.parent("label").toggle($(this).is(":checked"));
 
-    $("#layerName").keyup(function (e) {
-        if (e.which === 13) {
-            addNewLayer();
-        }
-    });
-
-    $("#groupName").keyup(function (e) {
-        if (e.which === 13) {
-            addNewGroup();
-        }
+        var atAngle = $("#atAngle");
+        atAngle.attr("disabled", !$(this).is(":checked"));
+        atAngle.parent("label").toggle($(this).is(":checked"));
     });
 });

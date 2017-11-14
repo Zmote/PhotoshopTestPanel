@@ -7,7 +7,7 @@ ZMotePanel.prototype.addOnePointPerspective = function (options) {
         pathUtility.pathPoint = pathUtility.calculateMedianOfPoints();
     }
     var doc = app.activeDocument;
-    var myPathItem = doc.pathItems.add("", pathUtility.generateSubPathFromDisconnectedLines(options));
+    var myPathItem = doc.pathItems.add("", pathUtility.generatePerspectivePathsFromDisconnectedLines(options));
     doc.selection.deselect();
     if(options.strokePath){
         var layer = doc.artLayers.add();

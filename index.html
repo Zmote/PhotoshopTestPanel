@@ -38,6 +38,24 @@
                 <input id="stopAngle" class="form-control d-inline w-20" type="number" placeholder="Stop Angle"
                        value="360"/>
             </div>
+            <hr>
+            <div class="form-check mb-2">
+                <div class="d-inline">
+                    <label class="form-check-label">
+                        <input id="simulateDepth" type="checkbox" class="form-check-input">
+                        Simulate Depth
+                    </label>
+                </div>
+                <div class="d-block mt-2">
+                    <label for="easing" class="mx-1 font-italic">At Angle:</label>
+                    <input id="atAngle" class="form-control d-inline w-25" type="number" placeholder="At Angle"
+                           value="90" disabled/>
+                    <label for="easing" class="mx-1 font-italic">Easing:</label>
+                    <input id="easing" class="form-control d-inline w-25" type="number" placeholder="Easing"
+                           value="1" disabled/>
+                </div>
+            </div>
+            <hr>
             <div class="form-check mb-2">
                 <label class="form-check-label">
                     <input id="autoRemovePath" checked type="checkbox" class="form-check-input">

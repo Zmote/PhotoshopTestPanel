@@ -1,23 +1,24 @@
-if(typeof($)=='undefined')
-    $={};
+if (typeof($) === 'undefined')
+    $ = {};
 
+//Loads jsx files at runtime
 $._ext = {
     //Evaluate a file and catch the exception.
-    evalFile : function(path) {
+    evalFile: function (path) {
         try {
             $.evalFile(path);
-        } catch (e) {alert("Exception:" + e);}
+        } catch (e) {
+            alert("Exception:" + e);
+        }
     },
     // Evaluate all the files in the given folder
-    evalFiles: function(jsxFolderPath) {
+    evalFiles: function (jsxFolderPath) {
         var folder = new Folder(jsxFolderPath);
         if (folder.exists) {
             var jsxFiles = folder.getFiles("*.jsx");
             for (var i = 0; i < jsxFiles.length; i++) {
                 var jsxFile = jsxFiles[i];
-                if(jsxFile.toString().indexOf("main.jsx") < 0){
-                    $._ext.evalFile(jsxFile);
-                }
+                $._ext.evalFile(jsxFile);
             }
         }
     }
