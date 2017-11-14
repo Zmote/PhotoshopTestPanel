@@ -1,7 +1,5 @@
-//TODO: add option to simulate depth --> ie. density based on angle
 //TODO: check if you can bind an event to brush strokes --> ie. add pixels on brush stroke
 //TODO: add mirrored drawing feature
-//TODO: Refactor jsx code, optimize code
 
 $(document).ready(function () {
     var csInterface = new CSInterface();
@@ -69,5 +67,17 @@ $(document).ready(function () {
         var atAngle = $("#atAngle");
         atAngle.attr("disabled", !$(this).is(":checked"));
         atAngle.parent("label").toggle($(this).is(":checked"));
+
+        var density = $("#density");
+        density.attr("disabled", $(this).is(":checked"));
+        density.parent("label").toggle($(this).is(":checked"));
+
+        var startAngle = $("#startAngle");
+        startAngle.attr("disabled", $(this).is(":checked"));
+        startAngle.parent("label").toggle($(this).is(":checked"));
+
+        var stopAngle = $("#stopAngle");
+        stopAngle.attr("disabled", $(this).is(":checked"));
+        stopAngle.parent("label").toggle($(this).is(":checked"));
     });
 });

@@ -78,7 +78,7 @@ PathUtility.prototype.easeFunction = function (value, index, easing) {
 PathUtility.prototype.calculateAnglesWithSimulatedDepth = function (options) {
     var angles = [];
     var oppositeAtAngle = options.atAngle + 180;
-    var easeAngles = Math.generateRange(options.startAngle, options.atAngle, pathUtility.easeFunction, options.easing);
+    var easeAngles = Math.generateRange(0, 90, pathUtility.easeFunction, options.easing);
     for (var i = 0; i < easeAngles.length; i++) {
         angles.push(options.atAngle - easeAngles[i]);
         angles.push(oppositeAtAngle - easeAngles[i]);

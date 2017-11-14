@@ -21,8 +21,8 @@ $._ext = {
                 $._ext.evalFile(jsxFile);
             }
             var subFolder = folder.getFiles();
-            for(var i = 0; i < subFolder.length;i++){
-                $._ext.evalFiles(subFolder[i]);
+            for(var j = 0; j < subFolder.length;j++){
+                $._ext.evalFiles(subFolder[j]);
             }
         }
     }
