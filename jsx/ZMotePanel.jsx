@@ -46,5 +46,4 @@ ZMotePanel.prototype.addMultiPointPerspective = function (options) {
             "bottom most path in the Path's layer, which is usually the Work Path.");
     }
 };
-
 $.global.zMotePanel = new ZMotePanel();
