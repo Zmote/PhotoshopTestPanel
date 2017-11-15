@@ -4,10 +4,17 @@ You have to do that, because else it asks for an encyrpted signature to run, whi
 
 ## Current Progress
 ![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)
-![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/animatedExample.gif)
+![alt text](https://www.youtube.com/watch?v=retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp)
 
 Features:
-- Add Named Layers
-- Add Named Groups
-- Add One-Point Perspective (with density and radius) at center
+- ~~Add Named Layers~~
+- ~~Add Named Groups~~
+- Add One-Point Perspective (with density, radius,eye margin, start angle, stop angle) at center
 - Add One-Point Perspective at selection (with density and radius) at center
+- Add One-Point Perspective at Center calculated from multiple selections
+- Add One-Point Perspective at Path Point
+- Add One-Point Perspective at Center calculated from multiple Path Points
+- Add Multi-Point Perspective at Path Point(s) (some settings are available for Multipoint that are available for One-Point, like radius, density etc.)
+- Add One-Point/Multi-Point Perspective with simulated depth
+
+I removed Add Named Layers and Ad Named Groups, because they didn't fit the context anymore.
