@@ -5,7 +5,7 @@ You have to do that, because else it asks for an encyrpted signature to run, whi
 ## Current Progress
 ![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)  
 ## Presentation Video
-![Youtbe Video](https://www.youtube.com/watch?v=retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp)
+[![Youtbe Video](http://img.youtube.com/vi/retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp/0.jpg)](http://www.youtube.com/watch?v=retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp)
 
 ## Features
 - ~~Add Named Layers~~
