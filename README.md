@@ -3,8 +3,9 @@ This panel/extension has no purpose, at the moment, it's more about learning how
 You have to do that, because else it asks for an encyrpted signature to run, which for development purposes doesn't make much sense.
 
 ## Current Progress
-![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)
-![alt text](https://www.youtube.com/watch?v=retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp)
+![alt text](https://github.com/Zmote/PhotoshopTestPanel/blob/master/screenshots/testpanel.png)  
+## Presentation Video
+![Youtbe Video](https://www.youtube.com/watch?v=retbm9ffJTg&list=PLqPGjCOaSLWFjFn0jlo1Khh5U6gL6rAWp)
 
 Features:
 - ~~Add Named Layers~~
